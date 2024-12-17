@@ -31,21 +31,19 @@ describe('API Test', () => {
         })
     })
 
-    it('TC003 - Update User', () => {
-        cy.request({
+    it('TC003 - Update User', async () => {
+        const response = await cy.request({
             method: 'PUT',
             url: 'https://reqres.in/api/users/9',
             body: {
                 "name": "Jinda Hone",
                 "job": "Automate Tester",
             }
-        }).then((response) => {
+       })
             expect(response.status).to.eq(200)
             expect(response.body).to.have.property('name','Jinda Hone')
             expect(response.body).to.have.property('job','Automate Tester')
             expect(response.body).to.have.property('updatedAt') 
-        })
-
     })
 
     it('TC004 - Delete User', async () => {
@@ -53,7 +51,6 @@ describe('API Test', () => {
             method: 'DELETE',
             url: 'https://reqres.in/api/users/9'
         })
-
         expect(response.status).to.eq(204)
         expect(response.body).to.be.empty
     })
